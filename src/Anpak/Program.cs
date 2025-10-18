@@ -1,4 +1,4 @@
 ﻿using Anpak;
 
 var app = new AnpakApp();
-await app.RunAsync(args);
+return await app.RunAsync(args);

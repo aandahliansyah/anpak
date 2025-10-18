@@ -19,12 +19,12 @@ public class Packager
     {
         try
         {
-            var projectDirectory = Path.GetDirectoryName(projectPath) ?? Directory.GetCurrentDirectory();
-            var projectFileName = Path.GetFileNameWithoutExtension(projectPath);
+            var fullProjectPath = Path.GetFullPath(projectPath);
+            var projectDirectory = Path.GetDirectoryName(fullProjectPath) ?? Directory.GetCurrentDirectory();
             
             // Build the project first
             Console.WriteLine("Building project...");
-            var buildResult = await BuildProjectAsync(projectPath);
+            var buildResult = await BuildProjectAsync(fullProjectPath);
             if (!buildResult.Success)
             {
                 return buildResult;
@@ -35,7 +35,7 @@ public class Packager
             var packagePath = Path.Combine(projectDirectory, "bin", "Release", "net9.0", "publish");
             
             // Publish the project
-            var publishResult = await PublishProjectAsync(projectPath, packagePath);
+            var publishResult = await PublishProjectAsync(fullProjectPath, packagePath);
             if (!publishResult.Success)
             {
                 return publishResult;
